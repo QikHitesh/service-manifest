@@ -1,1 +1,172 @@
-{"service_id":"qmail-mock","service_name":"QMail Mock Service","name":"QMail Mock Service","description":"Mock email delivery service for testing PMS integration","base_url":"http://localhost:8081","version":"1.0","public_key":"8qY2v4MyV5rBRhCwwMAh7RbhL67R1DQvIO7aaiWa6BI=","signature":"0b80EE5cxr2+Ju0DuO329u3S1TMxgi/scz74IH+ty9jYEJ25M5lbn5/40rM1fxrI1RQpCspgGeZiLwOR6kpZBg==","pricing_model":{"supported_models":["pay-as-you-go","subscription","prepaid_package","postpaid"],"currency":"points"},"services":[{"id":"email_send","name":"Send Email","description":"Send a single email","endpoint":"/v1/email/send","method":"POST","auth_required":true,"pricing":{"model":"pay-as-you-go","unit_cost":2,"unit_type":"operation","billing_mode":"immediate_deduction"}},{"id":"bulk_send","name":"Bulk Send","description":"Send multiple emails in bulk","endpoint":"/v1/email/bulk","method":"POST","auth_required":true,"pricing":{"model":"pay-as-you-go","unit_cost":5,"unit_type":"operation","billing_mode":"immediate_deduction"}},{"id":"health_check","name":"Health Check","description":"Check service health status","endpoint":"/health","method":"GET","pricing":{"model":"free","unit_cost":0,"unit_type":"operation","billing_mode":"immediate_deduction"}},{"id":"premium_features","name":"Premium Features","description":"Access to premium email features (templates, analytics, etc.)","endpoint":"/v1/email/premium","method":"POST","auth_required":true,"pricing":{"model":"subscription","unit_cost":1,"unit_type":"operation","billing_mode":"subscription","plans":[{"plan_id":"monthly_basic","name":"Monthly Basic","description":"1000 points per month for premium features","points":1000,"period_days":30,"daily_allocation":33.33,"features":["Premium templates","Email analytics","Priority support"]},{"plan_id":"yearly_premium","name":"Yearly Premium","description":"12000 points per year (save 20%)","points":12000,"period_days":365,"daily_allocation":32.88,"features":["All premium templates","Advanced analytics","24/7 priority support","Custom branding"]}]}},{"id":"email_package_1000","name":"Email Package - 1000 Emails","description":"Prepaid package: 100 points for 1000 emails","endpoint":"/v1/email/send","method":"POST","auth_required":true,"pricing":{"model":"prepaid_package","unit_cost":0.1,"unit_type":"operation","billing_mode":"prepaid_package"}},{"id":"bulk_email_package_500","name":"Bulk Email Package - 500 Bulk Sends","description":"Prepaid package: 250 points for 500 bulk email sends","endpoint":"/v1/email/bulk","method":"POST","auth_required":true,"pricing":{"model":"prepaid_package","unit_cost":0.5,"unit_type":"operation","billing_mode":"prepaid_package"}}],"subscription_plans":[{"plan_id":"monthly_basic","name":"Monthly Basic Plan","description":"1000 points per month for all services","points":1000,"period_days":30,"daily_allocation":33.33,"features":["Access to all email services","Premium templates","Email analytics"]},{"plan_id":"yearly_premium","name":"Yearly Premium Plan","description":"12000 points per year (save 20%)","points":12000,"period_days":365,"daily_allocation":32.88,"features":["Access to all email services","All premium templates","Advanced analytics","24/7 priority support","Custom branding"]}],"postpaid_plans":[{"plan_id":"postpaid_monthly","name":"Postpaid Monthly","description":"Use services first, pay later. Monthly billing cycle.","billing_period":"monthly","billing_period_days":30,"features":["Unlimited emails","Email analytics","Priority support"],"max_usage":1000},{"plan_id":"postpaid_yearly","name":"Postpaid Yearly","description":"Use services first, pay later. Yearly billing cycle.","billing_period":"yearly","billing_period_days":365,"features":["Unlimited emails","Advanced analytics","24/7 priority support","Custom branding"],"max_usage":12000},{"plan_id":"postpaid_hourly","name":"Postpaid Hourly","description":"Use services first, pay later. Hourly billing cycle.","billing_period":"hourly","billing_period_days":1,"features":["Unlimited emails","Basic analytics"],"max_usage":100}],"metadata":{"tags":["email","communication","mock","subscription"],"category":"communication"}}
+{
+  "service_id": "onqik-comm",
+  "service_name": "OnQik",
+  "name": "OnQik",
+  "description": "Unified communication service: mail, messaging, audio, and video",
+  "base_url": "http://localhost:8090",
+  "version": "1.0",
+  "public_key": "REPLACE_WITH_ONQIK_BASE64_ED25519_PUBLIC_KEY",
+  "signature": "REPLACE_AFTER_SIGNING_WITH_BASE64_ED25519_SIGNATURE",
+  "pricing_model": {
+    "supported_models": ["pay-as-you-go", "subscription", "prepaid_package", "postpaid"],
+    "currency": "points"
+  },
+  "services": [
+    {
+      "id": "mail_basic",
+      "name": "Mail",
+      "description": "Send and receive emails",
+      "endpoint": "/v1/mail/send",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "pay-as-you-go",
+        "unit_cost": 1,
+        "unit_type": "mail",
+        "billing_mode": "reserve_and_settle"
+      }
+    },
+    {
+      "id": "mail_package_500",
+      "name": "Mail Package 500",
+      "description": "Prepaid package: 500 mails for 50 points",
+      "endpoint": "/v1/mail/send",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "prepaid_package",
+        "unit_cost": 50,
+        "unit_type": "mail",
+        "billing_mode": "prepaid_package"
+      }
+    },
+    {
+      "id": "mail_package_1000",
+      "name": "Mail Package 1000",
+      "description": "Prepaid package: 1000 mails for 90 points",
+      "endpoint": "/v1/mail/send",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "prepaid_package",
+        "unit_cost": 90,
+        "unit_type": "mail",
+        "billing_mode": "prepaid_package"
+      }
+    },
+    {
+      "id": "chat_package_500",
+      "name": "Chat Package 500",
+      "description": "Prepaid package: 500 messages for 40 points",
+      "endpoint": "/v1/chat/general/send",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "prepaid_package",
+        "unit_cost": 40,
+        "unit_type": "message",
+        "billing_mode": "prepaid_package"
+      }
+    },
+    {
+      "id": "chat_general",
+      "name": "General Chat",
+      "description": "Group chat messaging",
+      "endpoint": "/v1/chat/general/send",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "pay-as-you-go",
+        "unit_cost": 1,
+        "unit_type": "message",
+        "billing_mode": "reserve_and_settle"
+      }
+    },
+    {
+      "id": "chat_direct",
+      "name": "Direct Messages",
+      "description": "One-to-one messaging",
+      "endpoint": "/v1/chat/direct/send",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "pay-as-you-go",
+        "unit_cost": 1,
+        "unit_type": "message",
+        "billing_mode": "reserve_and_settle"
+      }
+    },
+    {
+      "id": "audio_call",
+      "name": "Audio Call",
+      "description": "One-to-one or group audio calls",
+      "endpoint": "/v1/call/audio/start",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "pay-as-you-go",
+        "unit_cost": 2,
+        "unit_type": "minute",
+        "billing_mode": "reserve_and_settle"
+      }
+    },
+    {
+      "id": "video_call",
+      "name": "Video Call",
+      "description": "One-to-one or group video calls",
+      "endpoint": "/v1/call/video/start",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "pay-as-you-go",
+        "unit_cost": 5,
+        "unit_type": "minute",
+        "billing_mode": "reserve_and_settle"
+      }
+    }
+  ],
+  "subscription_plans": [
+    {
+      "plan_id": "onqik_basic",
+      "name": "OnQik Basic",
+      "description": "500 points per month for mail and chat",
+      "points": 500,
+      "period_days": 30,
+      "daily_allocation": 17,
+      "features": ["mail_basic", "chat_general", "chat_direct"]
+    },
+    {
+      "plan_id": "onqik_pro",
+      "name": "OnQik Pro",
+      "description": "1500 points per month for all features",
+      "points": 1500,
+      "period_days": 30,
+      "daily_allocation": 50,
+      "features": ["mail_basic", "chat_general", "chat_direct", "audio_call", "video_call"]
+    }
+  ],
+  "postpaid_plans": [
+    {
+      "plan_id": "onqik_postpaid_monthly",
+      "name": "OnQik Postpaid Monthly",
+      "description": "Use first, pay later. Monthly billing.",
+      "billing_period": "monthly",
+      "billing_period_days": 30,
+      "features": ["mail_basic", "chat_general", "chat_direct"],
+      "max_usage": 1000
+    },
+    {
+      "plan_id": "onqik_postpaid_yearly",
+      "name": "OnQik Postpaid Yearly",
+      "description": "Use first, pay later. Yearly billing.",
+      "billing_period": "yearly",
+      "billing_period_days": 365,
+      "features": ["mail_basic", "chat_general", "chat_direct", "audio_call", "video_call"],
+      "max_usage": 12000
+    }
+  ],
+  "metadata": {
+    "tags": ["mail", "chat", "audio", "video", "messaging"],
+    "category": "communication"
+  }
+}
