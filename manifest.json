@@ -1,172 +1,76 @@
 {
-  "service_id": "onqik-comm",
-  "service_name": "OnQik",
-  "name": "OnQik",
-  "description": "Unified communication service: mail, messaging, audio, and video",
-  "base_url": "http://localhost:8090",
-  "version": "1.0",
-  "public_key": "REPLACE_WITH_ONQIK_BASE64_ED25519_PUBLIC_KEY",
-  "signature": "REPLACE_AFTER_SIGNING_WITH_BASE64_ED25519_SIGNATURE",
-  "pricing_model": {
-    "supported_models": ["pay-as-you-go", "subscription", "prepaid_package", "postpaid"],
-    "currency": "points"
-  },
-  "services": [
+  "base_url": "http://localhost:8086",
+  "icon": "🖼️",
+  "offerings": [
     {
-      "id": "mail_basic",
-      "name": "Mail",
-      "description": "Send and receive emails",
-      "endpoint": "/v1/mail/send",
-      "method": "POST",
-      "auth_required": true,
+      "description": "50 tutorials. Learn HTML, CSS, JavaScript basics.",
+      "name": "Starter Pack",
+      "offering_id": "w3-starter-pack",
       "pricing": {
-        "model": "pay-as-you-go",
-        "unit_cost": 1,
-        "unit_type": "mail",
-        "billing_mode": "reserve_and_settle"
-      }
+        "points": 100,
+        "quota": 50,
+        "unit": "tutorial"
+      },
+      "type": "package"
     },
     {
-      "id": "mail_package_500",
-      "name": "Mail Package 500",
-      "description": "Prepaid package: 500 mails for 50 points",
-      "endpoint": "/v1/mail/send",
-      "method": "POST",
-      "auth_required": true,
+      "description": "200 tutorials. Full access to all beginner and intermediate courses.",
+      "name": "Pro Pack",
+      "offering_id": "w3-pro-pack",
       "pricing": {
-        "model": "prepaid_package",
-        "unit_cost": 50,
-        "unit_type": "mail",
-        "billing_mode": "prepaid_package"
-      }
+        "points": 350,
+        "quota": 200,
+        "unit": "tutorial"
+      },
+      "type": "package"
     },
     {
-      "id": "mail_package_1000",
-      "name": "Mail Package 1000",
-      "description": "Prepaid package: 1000 mails for 90 points",
-      "endpoint": "/v1/mail/send",
-      "method": "POST",
-      "auth_required": true,
+      "description": "1000 tutorials. Everything on the platform for 12 months.",
+      "name": "Unlimited Pack",
+      "offering_id": "w3-unlimited-pack",
       "pricing": {
-        "model": "prepaid_package",
-        "unit_cost": 90,
-        "unit_type": "mail",
-        "billing_mode": "prepaid_package"
-      }
+        "points": 1200,
+        "quota": 1000,
+        "unit": "tutorial"
+      },
+      "type": "package"
     },
     {
-      "id": "chat_package_500",
-      "name": "Chat Package 500",
-      "description": "Prepaid package: 500 messages for 40 points",
-      "endpoint": "/v1/chat/general/send",
-      "method": "POST",
-      "auth_required": true,
+      "description": "Unlimited tutorials per month. 500 points/month.",
+      "name": "Monthly subscription",
+      "offering_id": "w3-sub-monthly",
       "pricing": {
-        "model": "prepaid_package",
-        "unit_cost": 40,
-        "unit_type": "message",
-        "billing_mode": "prepaid_package"
-      }
+        "billing_period": "monthly",
+        "points": 500
+      },
+      "type": "subscription"
     },
     {
-      "id": "chat_general",
-      "name": "General Chat",
-      "description": "Group chat messaging",
-      "endpoint": "/v1/chat/general/send",
-      "method": "POST",
-      "auth_required": true,
+      "description": "Unlimited tutorials for a year. Best value.",
+      "name": "Yearly subscription",
+      "offering_id": "w3-sub-yearly",
       "pricing": {
-        "model": "pay-as-you-go",
-        "unit_cost": 1,
-        "unit_type": "message",
-        "billing_mode": "reserve_and_settle"
-      }
+        "billing_period": "yearly",
+        "points": 4000
+      },
+      "type": "subscription"
     },
     {
-      "id": "chat_direct",
-      "name": "Direct Messages",
-      "description": "One-to-one messaging",
-      "endpoint": "/v1/chat/direct/send",
-      "method": "POST",
-      "auth_required": true,
+      "description": "2 tokens per tutorial. Charged at runtime.",
+      "name": "Pay as you go",
+      "offering_id": "w3-payg",
       "pricing": {
-        "model": "pay-as-you-go",
-        "unit_cost": 1,
-        "unit_type": "message",
-        "billing_mode": "reserve_and_settle"
-      }
-    },
-    {
-      "id": "audio_call",
-      "name": "Audio Call",
-      "description": "One-to-one or group audio calls",
-      "endpoint": "/v1/call/audio/start",
-      "method": "POST",
-      "auth_required": true,
-      "pricing": {
-        "model": "pay-as-you-go",
-        "unit_cost": 2,
-        "unit_type": "minute",
-        "billing_mode": "reserve_and_settle"
-      }
-    },
-    {
-      "id": "video_call",
-      "name": "Video Call",
-      "description": "One-to-one or group video calls",
-      "endpoint": "/v1/call/video/start",
-      "method": "POST",
-      "auth_required": true,
-      "pricing": {
-        "model": "pay-as-you-go",
-        "unit_cost": 5,
-        "unit_type": "minute",
-        "billing_mode": "reserve_and_settle"
-      }
+        "deduction_schedule": "runtime",
+        "rate_per_unit": 2,
+        "unit": "tutorial"
+      },
+      "type": "pay-as-you-go"
     }
   ],
-  "subscription_plans": [
-    {
-      "plan_id": "onqik_basic",
-      "name": "OnQik Basic",
-      "description": "500 points per month for mail and chat",
-      "points": 500,
-      "period_days": 30,
-      "daily_allocation": 17,
-      "features": ["mail_basic", "chat_general", "chat_direct"]
-    },
-    {
-      "plan_id": "onqik_pro",
-      "name": "OnQik Pro",
-      "description": "1500 points per month for all features",
-      "points": 1500,
-      "period_days": 30,
-      "daily_allocation": 50,
-      "features": ["mail_basic", "chat_general", "chat_direct", "audio_call", "video_call"]
-    }
-  ],
-  "postpaid_plans": [
-    {
-      "plan_id": "onqik_postpaid_monthly",
-      "name": "OnQik Postpaid Monthly",
-      "description": "Use first, pay later. Monthly billing.",
-      "billing_period": "monthly",
-      "billing_period_days": 30,
-      "features": ["mail_basic", "chat_general", "chat_direct"],
-      "max_usage": 1000
-    },
-    {
-      "plan_id": "onqik_postpaid_yearly",
-      "name": "OnQik Postpaid Yearly",
-      "description": "Use first, pay later. Yearly billing.",
-      "billing_period": "yearly",
-      "billing_period_days": 365,
-      "features": ["mail_basic", "chat_general", "chat_direct", "audio_call", "video_call"],
-      "max_usage": 12000
-    }
-  ],
-  "metadata": {
-    "tags": ["mail", "chat", "audio", "video", "messaging"],
-    "category": "communication"
-  }
+  "public_key": "PUGp7hO+IvAdqSvqS6RmYCiGyXbN6EF4lf5m7HNvqKA=",
+  "public_key_type": "Ed25519",
+  "service_did": "did:credit:service:image-tools",
+  "service_id": "image-tools",
+  "service_name": "Image Tools Service",
+  "signature": "HglEYRltvyjKuTYTGegditlfbN4dV+KJMhjjMML6FDF/brOj2ak6+8tAeH0U9WrorIOCJmcjnav/m5P5c1r/BQ=="
 }
