@@ -141,8 +141,8 @@
   ],
   "public_key": "8/N4nIUhHhy0bieiFq7QxZn8SwloYIFrPfMSafImcZo=",
   "public_key_type": "Ed25519",
-  "service_did": "did:credit:service:qmail-mock",
-  "service_id": "qmail-mock",
-  "service_name": "QMail Mock Service",
+  "service_did": "did:credit:service:qflix-mock",
+  "service_id": "qflix-mock",
+  "service_name": "QFlix Mock Service",
   "signature": "2xsh/GbIgAlaMjSggPmtA8aqhHoetUFJAdq/g13lUQe+KFVIVnI7ieY41YOKTpySm+T0Rb1Y8AtW9JAI9sKHAw=="
 }
