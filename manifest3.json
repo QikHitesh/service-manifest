@@ -1,148 +1,202 @@
 {
-  "metering_config": {
-    "default_schedule": "hourly",
-    "grace_window_hours": 12,
-    "on_missing_rule": "log_only",
-    "rating_version": "1.1",
-    "rules": [
-      {
-        "charge": {
-          "rate_per_unit": 1.5,
-          "schedule": "hourly",
-          "type": "per_quantity"
-        },
-        "id": "sms_send",
-        "match": {
-          "event_type": "sms_send"
-        }
-      },
-      {
-        "charge": {
-          "rate_per_unit": 4,
-          "schedule": "hourly",
-          "type": "per_quantity"
-        },
-        "id": "push_notification",
-        "match": {
-          "event_type": "push_notification"
-        }
-      },
-      {
-        "charge": {
-          "rate_per_unit": 2.5,
-          "schedule": "hourly",
-          "type": "per_quantity"
-        },
-        "id": "template_render",
-        "match": {
-          "event_type": "template_render"
-        }
-      },
-      {
-        "charge": {
-          "rate_per_unit": 0.8,
-          "schedule": "hourly",
-          "type": "per_quantity"
-        },
-        "id": "api_access",
-        "match": {
-          "event_type": "api_calls"
-        }
-      },
-      {
-        "charge": {
-          "rate_per_unit": 0.002,
-          "schedule": "hourly",
-          "type": "per_quantity"
-        },
-        "id": "video_stream_second",
-        "match": {
-          "event_type": "video_seconds"
-        }
-      },
-      {
-        "charge": {
-          "rate_per_unit": 0.08,
-          "schedule": "hourly",
-          "type": "per_quantity"
-        },
-        "id": "video_stream_minute",
-        "match": {
-          "event_type": "video_minutes"
-        }
-      },
-      {
-        "charge": {
-          "rate_per_unit": 3,
-          "schedule": "hourly",
-          "type": "per_quantity"
-        },
-        "id": "compute_gpu_hour",
-        "match": {
-          "event_type": "gpu_hours"
-        }
-      }
-    ]
+  "service_id": "qmail-mock",
+  "service_name": "QMail Mock Service",
+  "name": "QMail Mock Service",
+  "description": "Mock email delivery service for testing PMS integration",
+  "base_url": "http://localhost:8081",
+  "version": "1.0",
+  "public_key": "W09tN0vHbDvI5z7CBqaFSLhs8WkBqgcm7fWE3yt39r0=",
+  "public_key_type": "Ed25519",
+  "signature": "dRu8HKcCQsX1kkcaQVTElMdhiujHZ9ZdJ5VpnXO/Cv4TAd1KtxRI/UB5ZnME0Jb/wrDWNi2n8AneGCeW3FxUCg==",
+  "pricing_model": {
+    "supported_models": [
+      "pay-as-you-go",
+      "subscription",
+      "prepaid_package",
+      "postpaid"
+    ],
+    "currency": "points"
   },
-  "offerings": [
+  "services": [
     {
-      "description": "Usage billed every hour based on consumption.",
-      "name": "Flexible Usage Plan",
-      "offering_id": "notify-flex-usage",
+      "id": "email_send",
+      "name": "Send Email",
+      "description": "Send a single email",
+      "endpoint": "/v1/email/send",
+      "method": "POST",
+      "auth_required": true,
       "pricing": {
-        "deduction_schedule": "hourly",
-        "rate_per_unit": 1.5,
-        "unit": "sms"
-      },
-      "type": "pay-as-you-go"
+        "model": "pay-as-you-go",
+        "unit_cost": 2,
+        "unit_type": "operation",
+        "billing_mode": "immediate_deduction"
+      }
     },
     {
-      "description": "Prepaid: 200 points for 2000 SMS.",
-      "name": "SMS Package - 2000",
-      "offering_id": "notify-package-sms-2000",
+      "id": "bulk_send",
+      "name": "Bulk Send",
+      "description": "Send multiple emails in bulk",
+      "endpoint": "/v1/email/bulk",
+      "method": "POST",
+      "auth_required": true,
       "pricing": {
-        "points": 200,
-        "quota": 2000,
-        "unit": "sms"
-      },
-      "type": "package"
+        "model": "pay-as-you-go",
+        "unit_cost": 5,
+        "unit_type": "operation",
+        "billing_mode": "immediate_deduction"
+      }
     },
     {
-      "description": "Prepaid: 300 points for 1000 push notifications.",
-      "name": "Push Package - 1000",
-      "offering_id": "notify-package-push-1000",
+      "id": "health_check",
+      "name": "Health Check",
+      "description": "Check service health status",
+      "endpoint": "/health",
+      "method": "GET",
       "pricing": {
-        "points": 300,
-        "quota": 1000,
-        "unit": "notification"
-      },
-      "type": "package"
+        "model": "free",
+        "unit_cost": 0,
+        "unit_type": "operation",
+        "billing_mode": "immediate_deduction"
+      }
     },
     {
-      "description": "2000 points per month subscription.",
-      "name": "Pro Monthly Plan",
-      "offering_id": "notify-subscription-monthly-pro",
+      "id": "premium_features",
+      "name": "Premium Features",
+      "description": "Access to premium email features (templates, analytics, etc.)",
+      "endpoint": "/v1/email/premium",
+      "method": "POST",
+      "auth_required": true,
       "pricing": {
-        "billing_period": "monthly",
-        "points": 2000
-      },
-      "type": "subscription"
+        "model": "subscription",
+        "unit_cost": 1,
+        "unit_type": "operation",
+        "billing_mode": "subscription",
+        "plans": [
+          {
+            "plan_id": "monthly_basic",
+            "name": "Monthly Basic",
+            "description": "1000 points per month for premium features",
+            "points": 1000,
+            "period_days": 30,
+            "daily_allocation": 33.33,
+            "features": [
+              "Premium templates",
+              "Email analytics",
+              "Priority support"
+            ]
+          },
+          {
+            "plan_id": "yearly_premium",
+            "name": "Yearly Premium",
+            "description": "12000 points per year (save 20%)",
+            "points": 12000,
+            "period_days": 365,
+            "daily_allocation": 32.88,
+            "features": [
+              "All premium templates",
+              "Advanced analytics",
+              "24/7 priority support",
+              "Custom branding"
+            ]
+          }
+        ]
+      }
     },
     {
-      "description": "10000 points per year subscription.",
-      "name": "Enterprise Annual Plan",
-      "offering_id": "notify-subscription-yearly-enterprise",
+      "id": "email_package_1000",
+      "name": "Email Package - 1000 Emails",
+      "description": "Prepaid package: 100 points for 1000 emails",
+      "endpoint": "/v1/email/send",
+      "method": "POST",
+      "auth_required": true,
       "pricing": {
-        "billing_period": "yearly",
-        "points": 10000
-      },
-      "type": "subscription"
+        "model": "prepaid_package",
+        "unit_cost": 0.1,
+        "unit_type": "operation",
+        "billing_mode": "prepaid_package"
+      }
+    },
+    {
+      "id": "bulk_email_package_500",
+      "name": "Bulk Email Package - 500 Bulk Sends",
+      "description": "Prepaid package: 250 points for 500 bulk email sends",
+      "endpoint": "/v1/email/bulk",
+      "method": "POST",
+      "auth_required": true,
+      "pricing": {
+        "model": "prepaid_package",
+        "unit_cost": 0.5,
+        "unit_type": "operation",
+        "billing_mode": "prepaid_package"
+      }
     }
   ],
-  "public_key": "B7kLm9XyP3rTzQwE5n8uH1vC0aSxY2ZpK6JdF4GhIuM=",
-  "public_key_type": "Ed25519",
-  "service_did": "did:credit:service:notify-mock",
-  "service_id": "notify-mock",
-  "service_name": "Notify Mock Service",
-  "signature": "Q1xZc2FtcGxlU2lnbmF0dXJlVG9rZW5Gb3JEZW1vbnN0cmF0aW9uMTIzNDU2"
+  "subscription_plans": [
+    {
+      "plan_id": "monthly_basic",
+      "name": "Monthly Basic Plan",
+      "description": "1000 points per month for all services",
+      "points": 1000,
+      "period_days": 30,
+      "daily_allocation": 33.33,
+      "features": [
+        "Access to all email services",
+        "Premium templates",
+        "Email analytics"
+      ]
+    },
+    {
+      "plan_id": "yearly_premium",
+      "name": "Yearly Premium Plan",
+      "description": "12000 points per year (save 20%)",
+      "points": 12000,
+      "period_days": 365,
+      "daily_allocation": 32.88,
+      "features": [
+        "Access to all email services",
+        "All premium templates",
+        "Advanced analytics",
+        "24/7 priority support",
+        "Custom branding"
+      ]
+    }
+  ],
+  "postpaid_plans": [
+    {
+      "plan_id": "postpaid_monthly",
+      "name": "Postpaid Monthly",
+      "description": "Use services first, pay later. Monthly billing cycle.",
+      "billing_period": "monthly",
+      "billing_period_days": 30,
+      "features": ["Unlimited emails", "Email analytics", "Priority support"],
+      "max_usage": 1000
+    },
+    {
+      "plan_id": "postpaid_yearly",
+      "name": "Postpaid Yearly",
+      "description": "Use services first, pay later. Yearly billing cycle.",
+      "billing_period": "yearly",
+      "billing_period_days": 365,
+      "features": [
+        "Unlimited emails",
+        "Advanced analytics",
+        "24/7 priority support",
+        "Custom branding"
+      ],
+      "max_usage": 12000
+    },
+    {
+      "plan_id": "postpaid_hourly",
+      "name": "Postpaid Hourly",
+      "description": "Use services first, pay later. Hourly billing cycle.",
+      "billing_period": "hourly",
+      "billing_period_days": 1,
+      "features": ["Unlimited emails", "Basic analytics"],
+      "max_usage": 100
+    }
+  ],
+  "metadata": {
+    "tags": ["email", "communication", "mock", "subscription"],
+    "category": "communication"
+  }
 }
