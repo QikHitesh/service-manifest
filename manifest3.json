@@ -1,0 +1,148 @@
+{
+  "metering_config": {
+    "default_schedule": "hourly",
+    "grace_window_hours": 12,
+    "on_missing_rule": "log_only",
+    "rating_version": "1.1",
+    "rules": [
+      {
+        "charge": {
+          "rate_per_unit": 1.5,
+          "schedule": "hourly",
+          "type": "per_quantity"
+        },
+        "id": "sms_send",
+        "match": {
+          "event_type": "sms_send"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 4,
+          "schedule": "hourly",
+          "type": "per_quantity"
+        },
+        "id": "push_notification",
+        "match": {
+          "event_type": "push_notification"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 2.5,
+          "schedule": "hourly",
+          "type": "per_quantity"
+        },
+        "id": "template_render",
+        "match": {
+          "event_type": "template_render"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 0.8,
+          "schedule": "hourly",
+          "type": "per_quantity"
+        },
+        "id": "api_access",
+        "match": {
+          "event_type": "api_calls"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 0.002,
+          "schedule": "hourly",
+          "type": "per_quantity"
+        },
+        "id": "video_stream_second",
+        "match": {
+          "event_type": "video_seconds"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 0.08,
+          "schedule": "hourly",
+          "type": "per_quantity"
+        },
+        "id": "video_stream_minute",
+        "match": {
+          "event_type": "video_minutes"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 3,
+          "schedule": "hourly",
+          "type": "per_quantity"
+        },
+        "id": "compute_gpu_hour",
+        "match": {
+          "event_type": "gpu_hours"
+        }
+      }
+    ]
+  },
+  "offerings": [
+    {
+      "description": "Usage billed every hour based on consumption.",
+      "name": "Flexible Usage Plan",
+      "offering_id": "notify-flex-usage",
+      "pricing": {
+        "deduction_schedule": "hourly",
+        "rate_per_unit": 1.5,
+        "unit": "sms"
+      },
+      "type": "pay-as-you-go"
+    },
+    {
+      "description": "Prepaid: 200 points for 2000 SMS.",
+      "name": "SMS Package - 2000",
+      "offering_id": "notify-package-sms-2000",
+      "pricing": {
+        "points": 200,
+        "quota": 2000,
+        "unit": "sms"
+      },
+      "type": "package"
+    },
+    {
+      "description": "Prepaid: 300 points for 1000 push notifications.",
+      "name": "Push Package - 1000",
+      "offering_id": "notify-package-push-1000",
+      "pricing": {
+        "points": 300,
+        "quota": 1000,
+        "unit": "notification"
+      },
+      "type": "package"
+    },
+    {
+      "description": "2000 points per month subscription.",
+      "name": "Pro Monthly Plan",
+      "offering_id": "notify-subscription-monthly-pro",
+      "pricing": {
+        "billing_period": "monthly",
+        "points": 2000
+      },
+      "type": "subscription"
+    },
+    {
+      "description": "10000 points per year subscription.",
+      "name": "Enterprise Annual Plan",
+      "offering_id": "notify-subscription-yearly-enterprise",
+      "pricing": {
+        "billing_period": "yearly",
+        "points": 10000
+      },
+      "type": "subscription"
+    }
+  ],
+  "public_key": "B7kLm9XyP3rTzQwE5n8uH1vC0aSxY2ZpK6JdF4GhIuM=",
+  "public_key_type": "Ed25519",
+  "service_did": "did:credit:service:notify-mock",
+  "service_id": "notify-mock",
+  "service_name": "Notify Mock Service",
+  "signature": "Q1xZc2FtcGxlU2lnbmF0dXJlVG9rZW5Gb3JEZW1vbnN0cmF0aW9uMTIzNDU2"
+}
