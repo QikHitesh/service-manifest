@@ -1,0 +1,175 @@
+{
+  "base_url": "http://localhost:8081",
+  "metering_config": {
+    "default_schedule": "immediate",
+    "grace_window_hours": 24,
+    "on_missing_rule": "no_charge",
+    "rating_version": "1.0",
+    "rules": [
+      {
+        "charge": {
+          "rate_per_unit": 2,
+          "schedule": "immediate",
+          "type": "per_quantity"
+        },
+        "id": "email_send",
+        "match": {
+          "event_type": "email_send"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 5,
+          "schedule": "immediate",
+          "type": "per_quantity"
+        },
+        "id": "bulk_send",
+        "match": {
+          "event_type": "bulk_send"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 3,
+          "schedule": "immediate",
+          "type": "per_quantity"
+        },
+        "id": "email_template",
+        "match": {
+          "event_type": "email_template"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 1,
+          "schedule": "immediate",
+          "type": "per_quantity"
+        },
+        "id": "premium_features",
+        "match": {
+          "event_type": "premium_features"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 0.001,
+          "schedule": "immediate",
+          "type": "per_quantity"
+        },
+        "id": "streaming_per_second",
+        "match": {
+          "event_type": "streaming_seconds"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 0.06,
+          "schedule": "immediate",
+          "type": "per_quantity"
+        },
+        "id": "streaming_per_minute",
+        "match": {
+          "event_type": "streaming_minutes"
+        }
+      },
+      {
+        "charge": {
+          "rate_per_unit": 2,
+          "schedule": "immediate",
+          "type": "per_quantity"
+        },
+        "id": "compute_per_hour",
+        "match": {
+          "event_type": "compute_hours"
+        }
+      }
+    ]
+  },
+  "offerings": [
+    {
+      "description": "Usage reported by service, deducted at end of day (or hourly if configured).",
+      "name": "Pay as you go",
+      "offering_id": "qmail-pay-as-you-go",
+      "pricing": {
+        "deduction_schedule": "daily",
+        "rate_per_unit": 2,
+        "unit": "email"
+      },
+      "type": "pay-as-you-go"
+    },
+    {
+      "description": "Prepaid: 100 points for 1000 emails.",
+      "name": "Email Package - 1000 Emails",
+      "offering_id": "qmail-package-1000",
+      "pricing": {
+        "points": 100,
+        "quota": 1000,
+        "unit": "email"
+      },
+      "refund_policy": {
+        "cancel_refund_mode": "prepaid_unused_fraction",
+        "cancellation_allowed": true,
+        "enabled": true,
+        "policy_url": "",
+        "user_facing_summary": "Refund for unused quota only: cancel anytime; refund = points × (remaining quota ÷ total quota)."
+      },
+      "type": "package"
+    },
+    {
+      "description": "Prepaid: 250 points for 500 bulk sends.",
+      "name": "Bulk Email Package - 500",
+      "offering_id": "qmail-package-bulk-500",
+      "pricing": {
+        "points": 250,
+        "quota": 500,
+        "unit": "email"
+      },
+      "refund_policy": {
+        "cancel_refund_mode": "full_if_no_usage",
+        "cancellation_allowed": true,
+        "enabled": true,
+        "user_facing_summary": "Full refund only if you have not used any quota (no sends). After any usage, cancel without refund."
+      },
+      "type": "package"
+    },
+    {
+      "description": "1000 points per month.",
+      "name": "Monthly subscription",
+      "offering_id": "qmail-subscription-monthly",
+      "pricing": {
+        "billing_period": "monthly",
+        "points": 1000
+      },
+      "refund_policy": {
+        "cancel_refund_mode": "prorated_period",
+        "cancellation_allowed": true,
+        "enabled": true,
+        "user_facing_summary": "Cancel anytime; refund prorated for unused subscription time (points)."
+      },
+      "type": "subscription"
+    },
+    {
+      "description": "5000 points per year.",
+      "name": "Yearly subscription",
+      "offering_id": "qmail-subscription-yearly",
+      "pricing": {
+        "billing_period": "yearly",
+        "points": 5000
+      },
+      "refund_policy": {
+        "cancel_refund_mode": "full_if_no_usage",
+        "cancellation_allowed": true,
+        "enabled": true,
+        "max_days_since_purchase_for_full_refund": 14,
+        "user_facing_summary": "Full refund within 14 days of purchase (cooling-off). After that, cancel without refund."
+      },
+      "type": "subscription"
+    }
+  ],
+  "public_key": "r7ePLU4JhENYf88zQDbhvQzJjQFWIvGRRnO6E/Sao8c=",
+  "public_key_type": "Ed25519",
+  "service_did": "did:credit:service:my-gadgets-mgmt-service",
+  "service_id": "my-gadgets-mgmt-service",
+  "service_name": "My gadgets mgmt Service",
+  "signature": "z9l6ETeBXDY9Fg6A3YqwbNmX0VoSrRJe1YcqnvQ0MZGwFTvF1RpIMpPC3qiIRfMCSOAvFztNWwNKlhxrRmDTCA=="
+}
